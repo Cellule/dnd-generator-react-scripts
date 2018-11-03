@@ -62,6 +62,7 @@ const useTypeScript = fs.existsSync(paths.appTsConfig);
 
 // style files regexes
 const cssRegex = /\.css$/;
+const lessRegex = /\.less$/;
 const cssModuleRegex = /\.module\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
@@ -408,6 +409,11 @@ module.exports = {
               modules: true,
               getLocalIdent: getCSSModuleLocalIdent,
             }),
+          },
+          {
+            test: lessRegex,
+            use: getStyleLoaders({ importLoaders: 2 }, 'less-loader'),
+            sideEffects: true,
           },
           // Opt-in support for SASS. The logic here is somewhat similar
           // as in the CSS routine, except that "sass-loader" runs first
